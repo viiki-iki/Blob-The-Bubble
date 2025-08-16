@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Clone\\Blob-The-Bubble\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A6D5A84F-12E7-BEAA-E862-83B7A25EA68F}|Assembly-CSharp.csproj|d:\\clone\\blob-the-bubble\\assets\\player\\playerinteractions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A6D5A84F-12E7-BEAA-E862-83B7A25EA68F}|Assembly-CSharp.csproj|solutionrelative:assets\\player\\playerinteractions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerInteractions.cs",
+              "DocumentMoniker": "D:\\Clone\\Blob-The-Bubble\\Assets\\Player\\PlayerInteractions.cs",
+              "RelativeDocumentMoniker": "Assets\\Player\\PlayerInteractions.cs",
+              "ToolTip": "D:\\Clone\\Blob-The-Bubble\\Assets\\Player\\PlayerInteractions.cs",
+              "RelativeToolTip": "Assets\\Player\\PlayerInteractions.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAAGAAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T18:54:39.656Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
