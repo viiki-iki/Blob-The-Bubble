@@ -61,11 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\FireThermo\BubblesSpawnPoints.cs" />
+    <Compile Include="Assets\Scripts\Player\SpoonTip.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\FireThermo\FireThermoManager.cs" />
     <Compile Include="Assets\Scripts\UI\ItensManager.cs" />
     <Compile Include="Assets\Scripts\UI\BookPanelManager.cs" />
-    <Compile Include="Assets\Player\PlayerInteractions.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerInteractions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

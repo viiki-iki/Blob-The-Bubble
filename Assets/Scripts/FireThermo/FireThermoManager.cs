@@ -5,43 +5,70 @@ using UnityEngine.UI;
 
 public class FireThermoManager : MonoBehaviour
 {
-    private bool fireState = false;
-    
-    [SerializeField] Slider temperatureSlider;      
+    [Header("fire")]
+    public bool fireState = false;
+    [SerializeField] Button fireButton;
+    [SerializeField] GameObject fireSprite;
+
+    [Header ("thermometro")]
+    [SerializeField] Slider temperatureSlider;
+
+    [Header("heat bubbles")]
     [SerializeField] int maxBubbles = 10;                     
     private int currentBubbles = 0;
+    [SerializeField] GameObject[] spawnPointsBase;      //apenas pegar posição e capacidade; nao mexer em isempty
+    [SerializeField] int maxSpawnInterval;
+    List<BubblesSpawnPoints> emptyPoints = new List<BubblesSpawnPoints>();
 
-    [SerializeField] GameObject[] spawnPoints;
-    [SerializeField] int maxSpawnInterval = 2;
+    public float missiontimerteste;
+
+    public int emptynn;
+
+    private void Awake()
+    {
+        fireButton.onClick.AddListener(SwitchFire);
+    }
 
     void Start()
-    {
+    {       
         if (temperatureSlider != null)
         {
             temperatureSlider.minValue = 0;
             temperatureSlider.maxValue = maxBubbles;
             temperatureSlider.value = 0;                                    // Inicia no valor mínimo
         }
-        // StartCoroutine(Task1Timer());
-        //  
+        emptyPoints.Capacity = spawnPointsBase.Length;
+        ResetCauldron();        
+        StartCoroutine(Task1Timer());                       //teste
     }
 
-    public void SwitchFire()
+    void ResetCauldron()        
+    {        
+        emptyPoints.Clear();
+        foreach (var point in spawnPointsBase)      //vai verificar 1x
+        {
+            BubblesSpawnPoints script = point.GetComponent<BubblesSpawnPoints>();
+           // script.isEmpty = true;           
+            emptyPoints.Add(script);                        
+        }
+    }
+
+    private void SwitchFire()
     {
         fireState = !fireState;
 
-        if (true)
-        {
-            StartCoroutine(SpawnBubbles());
+        if (fireState)
+        {           
+            StartCoroutine(HeatingUp());
+            Debug.Log("fogo acesso");
+            fireSprite.SetActive(true); //anim
         }
         else
-        {
-
+        {          
+            //StartCoroutine(CoolingDown());
+            fireSprite.SetActive(false);
+            Debug.Log("fogo desligado");    //anim
         }
-            
-
-        // on/off feedback visual
-
     }
 
     public void IncreaseTemperature(int type)
@@ -85,37 +112,58 @@ public class FireThermoManager : MonoBehaviour
             temperatureSlider.value = currentBubbles;
     }
 
-    IEnumerator SpawnBubbles()
+    IEnumerator Task1Timer()
     {
-        if (spawnPoints.Length == 0)
+        GameManager.Instance.ResetMissionsForTesting();
+        Debug.Log("missao 1 começou");
+        yield return new WaitForSeconds(missiontimerteste);
+        
+        GameManager.Instance.CompleteMission("Mission1");
+        Debug.Log("missao 1 terminou caraio");
+    }
+
+    IEnumerator HeatingUp()    
+    {
+        if (spawnPointsBase.Length == 0 || emptyPoints.Capacity == 0)
         {
             Debug.LogWarning("Nenhum ponto de spawn ou prefab configurado.");
             yield break;
         }
 
+        yield return new WaitForSeconds(5);       
+
         while (!GameManager.Instance.IsMissionCompleted("Mission1"))
-        {
-            int randomIndex = Random.Range(0, spawnPoints.Length);
-            BubblesSpawnPoints pointsScript = spawnPoints[randomIndex].GetComponent<BubblesSpawnPoints>();
-            if (pointsScript.isEmpty)
-            {
-                Transform spawnPoint = spawnPoints[randomIndex].transform;
+        {             
+            if(emptyPoints.Count == 0)
+            {               
+                ResetCauldron();
+                Debug.Log("0");
+                break;
+            }                                          
+            int randomIndex = Random.Range(0, emptyPoints.Count);
+            BubblesSpawnPoints pointsScript = emptyPoints[randomIndex];
+
+          //  if(pointsScript.isEmpty)
+          //  {
+                Transform spawnPoint = pointsScript.transform;
                 GameObject bubble = Instantiate(pointsScript.GetBubbleType(), spawnPoint.position, Quaternion.identity, spawnPoint);
 
                 pointsScript.bubble = bubble;
-                pointsScript.isEmpty = false;
-                IncreaseTemperature(pointsScript.bubbleTypeInt);
-            }
-            int randomInterval = Random.Range(1, maxSpawnInterval);
-            yield return new WaitForSeconds(randomInterval);
+              //  pointsScript.isEmpty = false;
+                emptyPoints.Remove(pointsScript);
+          //  }
+                  IncreaseTemperature(pointsScript.bubbleTypeInt);
+                 
+            int randomInterval = Random.Range(1, maxSpawnInterval);                
+            yield return new WaitForSeconds(randomInterval);           
         }
         Debug.Log("task completada");
         yield break;
     }
 
-    //IEnumerator Task1Timer()
-    //{
-    //    yield return new WaitForSeconds(30);
-    //    GameManager.Instance.CompleteMission("Mission1");
-    //}
+    public IEnumerator CoolingDown()
+    {
+        yield return new WaitForSeconds(5);
+        yield break;
+    }  
 }

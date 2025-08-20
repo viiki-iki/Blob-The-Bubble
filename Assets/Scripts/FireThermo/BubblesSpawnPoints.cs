@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BubblesSpawnPoints : MonoBehaviour
 {
-    public bool isEmpty = true;
+   // public bool isEmpty = true;
     [SerializeField] GameObject[] bubbleTypesPrefabs;
     [HideInInspector] public GameObject bubble;
     [HideInInspector] public int bubbleTypeInt;
@@ -21,7 +21,7 @@ public class BubblesSpawnPoints : MonoBehaviour
     {
         // Aqui você pode adicionar uma animação antes de destruir
         Destroy(bubble);
-        isEmpty = true;
+     //   isEmpty = true;
         thermoManager.DecreaseTemperature(bubbleTypeInt);
     }
 }

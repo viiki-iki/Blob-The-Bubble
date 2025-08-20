@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt(mission.Key, mission.Value ? 1 : 0);
         }
         PlayerPrefs.Save();
-        Debug.Log("Estados das missões salvos.");
+       // Debug.Log("Estados das missões salvos.");
     }
 
     private void LoadMissionStates()
@@ -67,6 +67,6 @@ public class GameManager : MonoBehaviour
         missionStates["Mission3"] = false; // Reseta a missão 3 para não completada
 
         SaveMissionStates(); // Salva imediatamente para persistir no PlayerPrefs
-        Debug.Log("Missões resetadas para não completadas.");
+        Debug.Log("Missões resetadas.");
     }
 }
